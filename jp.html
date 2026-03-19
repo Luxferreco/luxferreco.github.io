@@ -1,109 +1,290 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
-<meta charset="UTF-8">
-<title>Luxferre</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luxferre</title>
+  <style>
+    :root {
+      --bg: #000000;
+      --fg: #f2f2f2;
+      --muted: #9a9a9a;
+      --line: #3a3a3a;
+      --soft: rgba(255,255,255,0.04);
+    }
 
-<style>
+    * {
+      box-sizing: border-box;
+    }
 
-body{
-background:black;
-color:white;
-font-family:serif;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-margin:0;
-text-align:center;
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "Times New Roman", Georgia, serif;
+      min-height: 100%;
+    }
 
-opacity:0;
-animation:fadein 1.2s ease forwards;
-}
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+    }
 
-h1{
-font-size:56px;
-letter-spacing:10px;
-margin-bottom:30px;
-}
+    .page {
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+      position: relative;
+    }
 
-p{
-font-size:18px;
-color:#bbb;
-}
-.enter{
-display:inline-block;
-margin-top:50px;
-padding:12px 32px;
-border:0.5px solid #888;
-color:white;
-text-decoration:none;
-letter-spacing:3px;
-font-size:13px;
-transition:all .3s ease;
-}
+    .wordmark {
+      font-size: clamp(3rem, 9vw, 6rem);
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      margin: 0 0 28px;
+    }
 
-.enter:visited{
-color:white;
-}
-.enter:hover{
-border-color:white;
-box-shadow:0 0 12px rgba(255,255,255,0.15);
-}
-.languages{
-margin-top:60px;
-font-size:11px;
-letter-spacing:4px;
-color:#aaa;
-}
-.world{
-display:block;
-font-size:9px;
-letter-spacing:5px;
-color:#666;
-margin-bottom:8px;
-}
-@keyframes fadein{
-from{
-opacity:0;
-}
+    .tagline,
+    .subline {
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.5;
+    }
 
-to{
-opacity:1;
-}
-}
+    .tagline {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
 
-</style>
+    .subline {
+      font-size: 1rem;
+      margin-bottom: 44px;
+    }
 
+    .primary-btn,
+    .submit-btn {
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid var(--line);
+      padding: 16px 28px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .primary-btn:hover,
+    .submit-btn:hover {
+      background: var(--soft);
+      border-color: #6a6a6a;
+      transform: translateY(-1px);
+    }
+
+    .presence {
+      margin-top: 72px;
+    }
+
+    .presence-label {
+      color: #6f6f6f;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      margin-bottom: 18px;
+    }
+
+    .presence-links {
+      color: #bdbdbd;
+      font-size: 0.95rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .presence-links span {
+      display: inline-block;
+      margin: 0 10px;
+      white-space: nowrap;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .overlay-card {
+      width: 100%;
+      max-width: 520px;
+      border: 1px solid var(--line);
+      padding: 42px 28px;
+      background: #050505;
+      text-align: center;
+    }
+
+    .overlay-title {
+      font-size: 1.9rem;
+      margin: 0 0 18px;
+      letter-spacing: 0.04em;
+    }
+
+    .overlay-copy {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin: 0 0 26px;
+    }
+
+    .email-form {
+      display: flex;
+      gap: 10px;
+      flex-direction: column;
+      margin-top: 10px;
+    }
+
+    .email-input {
+      width: 100%;
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid var(--line);
+      padding: 15px 16px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .email-input::placeholder {
+      color: #777;
+    }
+
+    .email-input:focus {
+      border-color: #7a7a7a;
+    }
+
+    .fine {
+      color: #777;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      margin-top: 14px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: #8a8a8a;
+      font-size: 0.9rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 18px;
+    }
+
+    @media (min-width: 560px) {
+      .email-form {
+        flex-direction: row;
+      }
+
+      .email-input {
+        flex: 1;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <main class="page">
+    <h1 class="wordmark">LUXFERRE</h1>
+    <p class="tagline">Forgiato nell’oscurità</p>
+    <p class="subline">Prima collezione — In arrivo</p>
 
-<div>
+    <button class="primary-btn" id="openOverlay">Entra nella Maison</button>
 
-<h1>LUXFERRE</h1>
+    <section class="presence">
+      <div class="presence-label">Presenza</div>
+      <div class="presence-links">
+        <span>Stati Uniti</span> |
+        <span>Francia</span> |
+        <span>Italia</span> |
+        <span>Giappone</span>
+      </div>
+    </section>
+  </main>
 
-<p>影の中で鍛えられた</p>
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="overlay-card">
+      <h2 class="overlay-title">Sei stato notato.</h2>
+      <p class="overlay-copy">
+        L’ingresso non viene annunciato.<br />
+        Viene concesso.
+      </p>
 
-<p>最初のコレクション — 近日公開</p>
+      <form action="https://formspree.io/f/xqeynnel" method="POST" class="email-form">
+        <input
+          class="email-input"
+          type="email"
+          name="email"
+          placeholder="La tua e-mail"
+          required
+          autocomplete="email"
+        />
 
-<a href="/house/jp" class="enter">館に入る</a>
-    
-<div class="languages">
+        <input type="hidden" name="source" value="Luxferre IT" />
+        <input type="hidden" name="tier" value="Founders List" />
 
-<span class="world">世界</span>
-<br>
+        <button class="submit-btn" type="submit">
+          Richiedi l’ingresso
+        </button>
+      </form>
 
-<span class="countries">
-<a href="/">アメリカ合衆国</a> |
-<a href="/fr.html">フランス</a> |
-<a href="/it.html">イタリア</a> |
-<a href="/jp.html">日本</a>
-</span>
+      <p class="fine">
+        Lascia la tua e-mail per essere avvisato quando la Maison aprirà.
+      </p>
 
-</div>
+      <button class="close-btn" id="closeOverlay" type="button">Chiudi</button>
+    </div>
+  </div>
 
-</div>
+  <script>
+    const openOverlay = document.getElementById("openOverlay");
+    const closeOverlay = document.getElementById("closeOverlay");
+    const overlay = document.getElementById("overlay");
+    const emailInput = document.querySelector(".email-input");
 
+    function showOverlay() {
+      overlay.classList.add("active");
+      overlay.setAttribute("aria-hidden", "false");
+      setTimeout(() => emailInput.focus(), 200);
+    }
+
+    function hideOverlay() {
+      overlay.classList.remove("active");
+      overlay.setAttribute("aria-hidden", "true");
+    }
+
+    openOverlay.addEventListener("click", showOverlay);
+    closeOverlay.addEventListener("click", hideOverlay);
+
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) hideOverlay();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && overlay.classList.contains("active")) {
+        hideOverlay();
+      }
+    });
+  </script>
 </body>
 </html>
