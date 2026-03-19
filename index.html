@@ -241,18 +241,28 @@
         It is granted.
       </p>
 
-      <form class="email-form" id="emailForm">
-        <input
-          class="email-input"
-          id="emailInput"
-          type="email"
-          name="email"
-          placeholder="Your email"
-          required
-          autocomplete="email"
-        />
-        <button class="submit-btn" type="submit">Request Entry</button>
-      </form>
+    <form action="https://formspree.io/f/xqeynnel" method="POST" class="email-form">
+
+  <input
+    class="email-input"
+    type="email"
+    name="email"
+    placeholder="Your email"
+    required
+  />
+
+  <!-- Hidden Luxferre tags -->
+  <input type="hidden" name="source" value="Luxferre Entry">
+  <input type="hidden" name="tier" value="Founders List">
+
+  <button class="submit-btn" type="submit">
+    Request Entry
+  </button>
+
+  <!-- Redirect after submit -->
+  <input type="hidden" name="_redirect" value="https://luxferre.co/entered">
+
+</form>
 
       <p class="fine">Leave your email to be notified when the House opens.</p>
 
@@ -284,27 +294,17 @@
       overlay.setAttribute("aria-hidden", "true");
     }
 
-    openOverlay.addEventListener("click", showOverlay);
-    closeOverlay.addEventListener("click", hideOverlay);
-
     overlay.addEventListener("click", (e) => {
-      if (e.target === overlay) hideOverlay();
-    });
+  if (e.target === overlay) hideOverlay();
+});
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && overlay.classList.contains("active")) {
-        hideOverlay();
-      }
-    });
-
-    emailForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const email = emailInput.value.trim();
-      if (!email) return;
-
-      successMessage.classList.add("active");
-      emailForm.style.display = "none";
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && overlay.classList.contains("active")) {
+    hideOverlay();
+  
+  }
+        
+    
     });
   </script>
 </body>
