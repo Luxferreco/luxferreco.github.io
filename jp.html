@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -99,14 +99,30 @@
     .presence-links {
       color: #bdbdbd;
       font-size: 0.95rem;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
-    .presence-links span {
+    .presence-links a,
+    .presence-links a:visited {
+      color: #bdbdbd;
+      text-decoration: none;
       display: inline-block;
-      margin: 0 10px;
+      padding: 10px 14px;
+      margin: 4px 6px;
       white-space: nowrap;
+      transition: color 0.2s ease, transform 0.1s ease;
+      cursor: pointer;
+    }
+
+    .presence-links a:hover,
+    .presence-links a:active {
+      color: #f2f2f2;
+    }
+
+    .separator {
+      color: #6f6f6f;
+      margin: 0 4px;
     }
 
     .overlay {
@@ -206,28 +222,31 @@
 <body>
   <main class="page">
     <h1 class="wordmark">LUXFERRE</h1>
-    <p class="tagline">Forgiato nell’oscurità</p>
-    <p class="subline">Prima collezione — In arrivo</p>
+    <p class="tagline">闇の中で鍛えられる</p>
+    <p class="subline">ファーストコレクション — 近日公開</p>
 
-    <button class="primary-btn" id="openOverlay">Entra nella Maison</button>
+    <button class="primary-btn" id="openOverlay">メゾンに入る</button>
 
     <section class="presence">
-      <div class="presence-label">Presenza</div>
+      <div class="presence-label">存在</div>
       <div class="presence-links">
-        <span>Stati Uniti</span> |
-        <span>Francia</span> |
-        <span>Italia</span> |
-        <span>Giappone</span>
+        <a href="/">アメリカ</a>
+        <span class="separator">|</span>
+        <a href="/fr.html">フランス</a>
+        <span class="separator">|</span>
+        <a href="/it.html">イタリア</a>
+        <span class="separator">|</span>
+        <a href="/jp.html">日本</a>
       </div>
     </section>
   </main>
 
   <div class="overlay" id="overlay" aria-hidden="true">
     <div class="overlay-card">
-      <h2 class="overlay-title">Sei stato notato.</h2>
+      <h2 class="overlay-title">あなたは認識されました。</h2>
       <p class="overlay-copy">
-        L’ingresso non viene annunciato.<br />
-        Viene concesso.
+        入場は告げられるものではありません。<br />
+        与えられるものです。
       </p>
 
       <form action="https://formspree.io/f/xqeynnel" method="POST" class="email-form">
@@ -235,24 +254,22 @@
           class="email-input"
           type="email"
           name="email"
-          placeholder="La tua e-mail"
+          placeholder="メールアドレス"
           required
           autocomplete="email"
         />
 
-        <input type="hidden" name="source" value="Luxferre IT" />
+        <input type="hidden" name="source" value="Luxferre JP" />
         <input type="hidden" name="tier" value="Founders List" />
 
-        <button class="submit-btn" type="submit">
-          Richiedi l’ingresso
-        </button>
+        <button class="submit-btn" type="submit">入場を申請</button>
       </form>
 
       <p class="fine">
-        Lascia la tua e-mail per essere avvisato quando la Maison aprirà.
+        メゾンが開くときに通知を受け取るには、メールアドレスを入力してください。
       </p>
 
-      <button class="close-btn" id="closeOverlay" type="button">Chiudi</button>
+      <button class="close-btn" id="closeOverlay" type="button">閉じる</button>
     </div>
   </div>
 
