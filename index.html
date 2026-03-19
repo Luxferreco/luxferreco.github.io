@@ -103,10 +103,24 @@
       text-transform: uppercase;
     }
 
-    .presence-links span {
+    .presence-links a {
+      color: #bdbdbd;
+      text-decoration: none;
       display: inline-block;
       margin: 0 10px;
       white-space: nowrap;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .presence-links a:hover,
+    .presence-links a:active {
+      color: #f2f2f2;
+    }
+
+    .separator {
+      color: #6f6f6f;
+      margin: 0 2px;
     }
 
     .overlay {
@@ -192,17 +206,6 @@
       margin-top: 18px;
     }
 
-    .success {
-      display: none;
-      color: var(--fg);
-      line-height: 1.7;
-      margin-top: 18px;
-    }
-
-    .success.active {
-      display: block;
-    }
-
     @media (min-width: 560px) {
       .email-form {
         flex-direction: row;
@@ -221,21 +224,19 @@
     <p class="subline">First Collection — Coming Soon</p>
 
     <button class="primary-btn" id="openOverlay">Enter the House</button>
- 
-    
-  <section class="presence">
-  <div class="presence-label">Presence</div>
 
-  <div class="presence-links">
-    <a href="/">United States</a>
-    <span class="separator">|</span>
-    <a href="/fr.html">France</a>
-    <span class="separator">|</span>
-    <a href="/it.html">Italy</a>
-    <span class="separator">|</span>
-    <a href="/jp.html">Japan</a>
-  </div>
-</section>
+    <section class="presence">
+      <div class="presence-label">Presence</div>
+      <div class="presence-links">
+        <a href="/">United States</a>
+        <span class="separator">|</span>
+        <a href="/fr.html">France</a>
+        <span class="separator">|</span>
+        <a href="/it.html">Italy</a>
+        <span class="separator">|</span>
+        <a href="/jp.html">Japan</a>
+      </div>
+    </section>
   </main>
 
   <div class="overlay" id="overlay" aria-hidden="true">
@@ -246,35 +247,25 @@
         It is granted.
       </p>
 
-    <form action="https://formspree.io/f/xqeynnel" method="POST" class="email-form">
+      <form action="https://formspree.io/f/xqeynnel" method="POST" class="email-form">
+        <input
+          class="email-input"
+          type="email"
+          name="email"
+          placeholder="Your email"
+          required
+          autocomplete="email"
+        />
 
-  <input
-    class="email-input"
-    type="email"
-    name="email"
-    placeholder="Your email"
-    required
-  />
+        <input type="hidden" name="source" value="Luxferre EN" />
+        <input type="hidden" name="tier" value="Founders List" />
 
-  <!-- Hidden Luxferre tags -->
-  <input type="hidden" name="source" value="Luxferre Entry">
-  <input type="hidden" name="tier" value="Founders List">
-
-  <button class="submit-btn" type="submit">
-    Request Entry
-  </button>
-
-  <!-- Redirect after submit -->
-  <input type="hidden" name="_redirect" value="https://luxferre.co/entered">
-
-</form>
+        <button class="submit-btn" type="submit">
+          Request Entry
+        </button>
+      </form>
 
       <p class="fine">Leave your email to be notified when the House opens.</p>
-
-      <div class="success" id="successMessage">
-        Entry received.<br />
-        The House will open in silence.
-      </div>
 
       <button class="close-btn" id="closeOverlay" type="button">Close</button>
     </div>
@@ -284,9 +275,7 @@
     const openOverlay = document.getElementById("openOverlay");
     const closeOverlay = document.getElementById("closeOverlay");
     const overlay = document.getElementById("overlay");
-    const emailForm = document.getElementById("emailForm");
-    const emailInput = document.getElementById("emailInput");
-    const successMessage = document.getElementById("successMessage");
+    const emailInput = document.querySelector(".email-input");
 
     function showOverlay() {
       overlay.classList.add("active");
@@ -299,17 +288,17 @@
       overlay.setAttribute("aria-hidden", "true");
     }
 
-    overlay.addEventListener("click", (e) => {
-  if (e.target === overlay) hideOverlay();
-});
+    openOverlay.addEventListener("click", showOverlay);
+    closeOverlay.addEventListener("click", hideOverlay);
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && overlay.classList.contains("active")) {
-    hideOverlay();
-  
-  }
-        
-    
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) hideOverlay();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && overlay.classList.contains("active")) {
+        hideOverlay();
+      }
     });
   </script>
 </body>
