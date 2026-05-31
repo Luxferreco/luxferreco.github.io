@@ -1,305 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Luxferre</title>
-  <style>
-    :root {
-      --bg: #000000;
-      --fg: #f2f2f2;
-      --muted: #9a9a9a;
-      --line: #3a3a3a;
-      --soft: rgba(255,255,255,0.04);
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Luxferre. A private House defined by charcoal concrete, obsidian glass, and blackened copper."
+    />
+    <title>Luxferre</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="home" aria-label="Luxferre homepage">
+      <section class="threshold" aria-labelledby="house-title">
+        <div class="threshold-image" aria-hidden="true"></div>
+        <div class="threshold-vignette" aria-hidden="true"></div>
 
-    * {
-      box-sizing: border-box;
-    }
+        <h1 id="house-title" class="engraving">LUXFERRE</h1>
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: "Times New Roman", Georgia, serif;
-      min-height: 100%;
-    }
-
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 32px 20px;
-    }
-
-    .page {
-      width: 100%;
-      max-width: 900px;
-      text-align: center;
-      position: relative;
-    }
-
-    .wordmark {
-      font-size: clamp(3rem, 9vw, 6rem);
-      letter-spacing: 0.14em;
-      font-weight: 700;
-      margin: 0 0 28px;
-    }
-
-    .tagline,
-    .subline {
-      color: var(--muted);
-      margin: 0;
-      line-height: 1.5;
-    }
-
-    .tagline {
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-    }
-
-    .subline {
-      font-size: 1rem;
-      margin-bottom: 44px;
-    }
-
-    .primary-btn,
-    .submit-btn {
-      background: transparent;
-      color: var(--fg);
-      border: 1px solid var(--line);
-      padding: 16px 28px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .primary-btn:hover,
-    .submit-btn:hover {
-      background: var(--soft);
-      border-color: #6a6a6a;
-      transform: translateY(-1px);
-    }
-
-    .presence {
-      margin-top: 72px;
-    }
-
-    .presence-label {
-      color: #6f6f6f;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      margin-bottom: 18px;
-    }
-
-    .presence-links {
-      color: #bdbdbd;
-      font-size: 0.95rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .presence-links a {
-      color: #bdbdbd;
-      text-decoration: none;
-      display: inline-block;
-      margin: 0 10px;
-      white-space: nowrap;
-      transition: color 0.2s ease;
-      cursor: pointer;
-    }
-
-    .presence-links a:hover,
-    .presence-links a:active {
-      color: #f2f2f2;
-    }
-
-    .separator {
-      color: #6f6f6f;
-      margin: 0 2px;
-    }
-
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.92);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.35s ease, visibility 0.35s ease;
-    }
-
-    .overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .overlay-card {
-      width: 100%;
-      max-width: 520px;
-      border: 1px solid var(--line);
-      padding: 42px 28px;
-      background: #050505;
-      text-align: center;
-    }
-
-    .overlay-title {
-      font-size: 1.9rem;
-      margin: 0 0 18px;
-      letter-spacing: 0.04em;
-    }
-
-    .overlay-copy {
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.7;
-      margin: 0 0 26px;
-    }
-
-    .email-form {
-      display: flex;
-      gap: 10px;
-      flex-direction: column;
-      margin-top: 10px;
-    }
-
-    .email-input {
-      width: 100%;
-      background: transparent;
-      color: var(--fg);
-      border: 1px solid var(--line);
-      padding: 15px 16px;
-      font-size: 1rem;
-      outline: none;
-    }
-
-    .email-input::placeholder {
-      color: #777;
-    }
-
-    .email-input:focus {
-      border-color: #7a7a7a;
-    }
-
-    .fine {
-      color: #777;
-      font-size: 0.88rem;
-      line-height: 1.6;
-      margin-top: 14px;
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      color: #8a8a8a;
-      font-size: 0.9rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      cursor: pointer;
-      margin-top: 18px;
-    }
-
-    @media (min-width: 560px) {
-      .email-form {
-        flex-direction: row;
-      }
-
-      .email-input {
-        flex: 1;
-      }
-    }
-  </style>
-</head>
-<body>
-  <main class="page">
-    <h1 class="wordmark">LUXFERRE</h1>
-    <p class="tagline">Forged in Darkness</p>
-    <p class="subline">First Collection — Coming Soon</p>
-
-    <button class="primary-btn" id="openOverlay">Enter the House</button>
-
-    <section class="presence">
-      <div class="presence-label">Presence</div>
-      <div class="presence-links">
-        <a href="/">United States</a>
-        <span class="separator">|</span>
-        <a href="/fr.html">France</a>
-        <span class="separator">|</span>
-        <a href="/it.html">Italy</a>
-        <span class="separator">|</span>
-        <a href="/jp.html">Japan</a>
-      </div>
-    </section>
-  </main>
-
-  <div class="overlay" id="overlay" aria-hidden="true">
-    <div class="overlay-card">
-      <h2 class="overlay-title">You’ve been seen.</h2>
-      <p class="overlay-copy">
-        Entry is not announced.<br />
-        It is granted.
-      </p>
-
-      <form action="https://formspree.io/f/xqeynnel" method="POST" class="email-form">
-        <input
-          class="email-input"
-          type="email"
-          name="email"
-          placeholder="Your email"
-          required
-          autocomplete="email"
-        />
-
-        <input type="hidden" name="source" value="Luxferre EN" />
-        <input type="hidden" name="tier" value="Founders List" />
-
-        <button class="submit-btn" type="submit">
-          Request Entry
+        <button class="enter-button" type="button" data-open-modal>
+          Enter the House
         </button>
-      </form>
+      </section>
+    </main>
 
-      <p class="fine">Leave your email to be notified when the House opens.</p>
+    <div class="entry-modal" role="dialog" aria-modal="true" aria-labelledby="entry-title" hidden>
+      <div class="modal-scrim" data-close-modal></div>
+      <section class="modal-panel" aria-label="Request entry">
+        <button class="modal-close" type="button" data-close-modal aria-label="Close entry request">
+          Close
+        </button>
 
-      <button class="close-btn" id="closeOverlay" type="button">Close</button>
+        <div class="modal-content" data-modal-content>
+          <p class="modal-kicker">Private Entry</p>
+          <h2 id="entry-title">You&rsquo;ve been seen.</h2>
+          <p>
+            Entry is not announced.<br />
+            It is granted.
+          </p>
+
+          <form
+            class="entry-form"
+            action="https://formspree.io/f/xqeynnel"
+            method="POST"
+            data-formspree-form
+          >
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" autocomplete="email" required />
+            <button type="submit">Request Entry</button>
+          </form>
+
+          <p class="supporting-text">
+            Leave your email to be notified when the House opens.
+          </p>
+        </div>
+      </section>
     </div>
-  </div>
 
-  <script>
-    const openOverlay = document.getElementById("openOverlay");
-    const closeOverlay = document.getElementById("closeOverlay");
-    const overlay = document.getElementById("overlay");
-    const emailInput = document.querySelector(".email-input");
-
-    function showOverlay() {
-      overlay.classList.add("active");
-      overlay.setAttribute("aria-hidden", "false");
-      setTimeout(() => emailInput.focus(), 200);
-    }
-
-    function hideOverlay() {
-      overlay.classList.remove("active");
-      overlay.setAttribute("aria-hidden", "true");
-    }
-
-    openOverlay.addEventListener("click", showOverlay);
-    closeOverlay.addEventListener("click", hideOverlay);
-
-    overlay.addEventListener("click", (e) => {
-      if (e.target === overlay) hideOverlay();
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && overlay.classList.contains("active")) {
-        hideOverlay();
-      }
-    });
-  </script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
